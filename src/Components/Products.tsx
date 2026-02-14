@@ -11,12 +11,12 @@ const products: ProductInterface = {
   "samsung s 24 ultra": 1200,
 };
 
-function Products(props): number {
+function Products({ tax }) {
   return (
     <>
       {Object.entries(products).map(([phone, price], index) => (
         <p key={index}>
-          {phone} price : {price} with tax :{calculateTax(price, props.tax)}
+          {phone} price : {price} with tax :{calculateTax(price, tax)}
         </p>
       ))}
     </>
@@ -27,22 +27,17 @@ function calculateTax(price: number, tax: number): number {
   return (price / 100) * tax + price;
 }
 
-export function clickOnButton() {
-  console.log("work");
-}
-
-export function InputRefresh() {
-  let [name, setName] = useState("hallo world");
-
-  function changeName(e) {
-    setName(e.target.value);
-    console.log(name);
-  }
+export function RenderTax({ tax, setTax }) {
+  console.log(tax);
 
   return (
     <>
-      <button onClick={clickOnButton}>{name}</button>
-      <input type="text" onInput={changeName} />
+      <button onClick={() => console.log(tax)}>TAX</button>
+      <input
+        type="text"
+        placeholder="Unesite novu taksu"
+        onChange={(e) => setTax(Number(e.target.value))}
+      />
     </>
   );
 }

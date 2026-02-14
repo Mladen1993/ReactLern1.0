@@ -1,14 +1,19 @@
 import "./style.css";
 
 // import siteLogo from "./logo.svg"; // const siteLogo = "logo.svg"
+
+import { useState } from "react";
 import Products from "./Components/Products";
-import { InputRefresh } from "./Components/Products";
+
+import { RenderTax } from "./Components/Products";
 
 function App() {
+  let [tax, setTax] = useState(20);
   return (
     <>
-      <Products tax={20} />
-      <InputRefresh />
+      <Products tax={tax} setTax={setTax} />
+
+      <RenderTax tax={tax} setTax={setTax} />
     </>
   );
 }
