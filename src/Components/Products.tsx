@@ -2,23 +2,32 @@ import React from "react";
 import { useState } from "react";
 
 interface ProductInterface {
-  [key: string]: number;
+  id: number;
+  name: string;
+  price: number;
 }
 
-const products: ProductInterface = {
-  "iphone 13": 1000,
-  "iphone 15": 1300,
-  "samsung s 24 ultra": 1200,
-};
+const initialProducts = [
+  { id: 1, name: "iphone 13", price: 1000 },
+  { id: 2, name: "iphone 15", price: 1300 },
+  { id: 3, name: "samsung s 24 ultra", price: 1200 },
+];
 
-function Products({ tax }) {
+function Products({ tax }: { tax: number }) {
+  const [products, setProducts] = useState<ProductInterface[]>(initialProducts);
+
   return (
     <>
-      {Object.entries(products).map(([phone, price], index) => (
-        <p key={index}>
-          {phone} price : {price} with tax :{calculateTax(price, tax)}
+      {products.map((product) => (
+        <p key={product.id}>
+          {product.name} price : {product.price} with tax :
+          {calculateTax(product.price, tax)}
         </p>
       ))}
+      <button onClick={() => setProducts([])}>delete product</button>
+      <button onClick={() => setProducts(initialProducts)}>
+        return product
+      </button>
     </>
   );
 }
@@ -34,7 +43,7 @@ export function RenderTax({ tax, setTax }) {
     <>
       <button onClick={() => console.log(tax)}>TAX</button>
       <input
-        type="text"
+        type="number"
         placeholder="Unesite novu taksu"
         onChange={(e) => setTax(Number(e.target.value))}
       />
