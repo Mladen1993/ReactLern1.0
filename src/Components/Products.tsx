@@ -13,20 +13,66 @@ const initialProducts = [
   { id: 3, name: "samsung s 24 ultra", price: 1200 },
 ];
 
-function Products({ tax }: { tax: number }) {
+function Products({ tax, setTax }: { tax: number; setTax: Number }) {
   const [products, setProducts] = useState<ProductInterface[]>(initialProducts);
+  const [newProductName, setNewProductName] = useState<string>("");
+  const [newProductPrice, setNewProductPrice] = useState<number>("");
+
+  const handleAddProduct = () => {
+    if (!newProductName || !newProductPrice) {
+      alert("Unesite podatke");
+      return;
+    }
+    const newProduct = {
+      id: products.length + 1,
+      name: newProductName,
+      price: newProductPrice,
+    };
+    setProducts([...products, newProduct]);
+    setNewProductName("");
+    setNewProductPrice("");
+  };
 
   return (
     <>
-      {products.map((product) => (
-        <p key={product.id}>
-          {product.name} price : {product.price} with tax :
-          {calculateTax(product.price, tax)}
-        </p>
-      ))}
-      <button onClick={() => setProducts([])}>delete product</button>
-      <button onClick={() => setProducts(initialProducts)}>
-        return product
+      <div className="products">
+        {products.map((product) => (
+          <p key={product.id}>
+            {product.name} price: {product.price} with tax:
+            {calculateTax(product.price, tax).toFixed()}
+          </p>
+        ))}
+      </div>
+
+      <div className="addProductInp">
+        <input
+          className="addProduct"
+          type="text"
+          placeholder="Add Product"
+          value={newProductName}
+          onChange={(e) => setNewProductName(e.target.value)}
+        />
+        <input
+          className="priceInp"
+          type="number"
+          placeholder="price"
+          value={newProductPrice}
+          onChange={(e) => setNewProductPrice(Number(e.target.value))}
+        />
+        <button className="addProductBtn" onClick={handleAddProduct}>
+          add product
+        </button>
+      </div>
+
+      <button className="deleteProductBtn" onClick={() => setProducts([])}>
+        delete product
+      </button>
+      <button
+        className="initialProducts"
+        onClick={() => setProducts(initialProducts)}
+      >
+        {" "}
+        initialProducts
       </button>
     </>
   );
@@ -37,15 +83,15 @@ function calculateTax(price: number, tax: number): number {
 }
 
 export function RenderTax({ tax, setTax }) {
-  console.log(tax);
-
   return (
     <>
-      <button onClick={() => console.log(tax)}>TAX</button>
       <input
+        className="setTexInp"
         type="number"
         placeholder="Unesite novu taksu"
-        onChange={(e) => setTax(Number(e.target.value))}
+        onChange={(e) =>
+          setTax(e.target.value === "" ? 20 : Number(e.target.value))
+        }
       />
     </>
   );

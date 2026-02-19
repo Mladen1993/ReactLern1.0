@@ -1,7 +1,7 @@
 import "./style.css";
 
 // import siteLogo from "./logo.svg"; // const siteLogo = "logo.svg"
-
+import React from "react";
 import { useState } from "react";
 import Products from "./Components/Products";
 
