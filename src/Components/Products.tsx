@@ -7,20 +7,21 @@ interface ProductInterface {
   price: number;
 }
 
-const initialProducts = [
+const initialProducts: ProductInterface[] = [
   { id: 1, name: "iphone 13", price: 1000 },
   { id: 2, name: "iphone 15", price: 1300 },
   { id: 3, name: "samsung s 24 ultra", price: 1200 },
 ];
 
-function Products({ tax, setTax }: { tax: number; setTax: Number }) {
+function Products({ tax, setTax }: { tax: number; setTax: number }) {
   const [products, setProducts] = useState<ProductInterface[]>(initialProducts);
   const [newProductName, setNewProductName] = useState<string>("");
-  const [newProductPrice, setNewProductPrice] = useState<number>("");
+  const [newProductPrice, setNewProductPrice] = useState<number | "">("");
+  const [searchTerm, setSearchTerms] = useState<string>("");
 
   const handleAddProduct = () => {
     if (!newProductName || !newProductPrice) {
-      alert("Unesite podatke");
+      alert("Niste uneli tacne podatke ili niste popunili oba polja");
       return;
     }
     const newProduct = {
@@ -65,15 +66,32 @@ function Products({ tax, setTax }: { tax: number; setTax: Number }) {
       </div>
 
       <button className="deleteProductBtn" onClick={() => setProducts([])}>
-        delete product
+        Delete product
       </button>
       <button
         className="initialProducts"
         onClick={() => setProducts(initialProducts)}
       >
-        {" "}
-        initialProducts
+        Initial Products
       </button>
+      <input
+        type="text"
+        placeholder="pretraga "
+        onChange={(e) => setSearchTerms(e.target.value)}
+      />
+      <div className="searchProducts">
+        {products
+          .filter((product) =>
+            searchTerm === ""
+              ? null
+              : product.name.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          .map((product) => (
+            <p key={product.id}>
+              {product.name} - {product.price}
+            </p>
+          ))}
+      </div>
     </>
   );
 }
