@@ -13,7 +13,7 @@ const initialProducts: ProductInterface[] = [
   { id: 3, name: "samsung s 24 ultra", price: 1200 },
 ];
 
-function Products({ tax, setTax }: { tax: number; setTax: number }) {
+function Products({ tax }: { tax: number }) {
   const [products, setProducts] = useState<ProductInterface[]>(initialProducts);
   const [newProductName, setNewProductName] = useState<string>("");
   const [newProductPrice, setNewProductPrice] = useState<number | "">("");
@@ -35,11 +35,11 @@ function Products({ tax, setTax }: { tax: number; setTax: number }) {
   };
 
   return (
-    <>
+    <div className="appContainer">
       <div className="products">
         {products.map((product) => (
           <p key={product.id}>
-            {product.name} price: {product.price} with tax:
+            {product.name} price: {product.price}e with tax:
             {calculateTax(product.price, tax).toFixed()}
           </p>
         ))}
@@ -64,21 +64,24 @@ function Products({ tax, setTax }: { tax: number; setTax: number }) {
           add product
         </button>
       </div>
+      <div className="bottomActions">
+        <button className="deleteProductBtn" onClick={() => setProducts([])}>
+          Delete product
+        </button>
+        <button
+          className="initialProducts"
+          onClick={() => setProducts(initialProducts)}
+        >
+          Initial Products
+        </button>
+        <input
+          className="searchInp"
+          type="text"
+          placeholder="pretraga "
+          onChange={(e) => setSearchTerms(e.target.value)}
+        />
+      </div>
 
-      <button className="deleteProductBtn" onClick={() => setProducts([])}>
-        Delete product
-      </button>
-      <button
-        className="initialProducts"
-        onClick={() => setProducts(initialProducts)}
-      >
-        Initial Products
-      </button>
-      <input
-        type="text"
-        placeholder="pretraga "
-        onChange={(e) => setSearchTerms(e.target.value)}
-      />
       <div className="searchProducts">
         {products
           .filter((product) =>
@@ -88,11 +91,11 @@ function Products({ tax, setTax }: { tax: number; setTax: number }) {
           )
           .map((product) => (
             <p key={product.id}>
-              {product.name} - {product.price}
+              {product.name} - {product.price}e
             </p>
           ))}
       </div>
-    </>
+    </div>
   );
 }
 

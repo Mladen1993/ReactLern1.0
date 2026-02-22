@@ -1,59 +1,67 @@
-/* GLOBAL */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f9;
-  margin: 0;
-  padding: 40px;
+/* APP CONTAINER */
+.appContainer {
+  max-width: 750px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-/* PRODUCTS LIST */
-.products {
+/* PRODUCTS */
+/* .products {
   background: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  margin-bottom: 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 .products p {
-  background: #f9fafc;
-  padding: 10px 15px;
-  border-radius: 8px;
-  margin: 8px 0;
-  font-size: 15px;
+  background: #f8f9fc;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
+} */
+.products:empty {
+  display: none; /* sakrij praznu listu */
 }
 
-/* TAX INPUT */
-.setTexInp {
-  width: 200px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #dcdcdc;
-  margin-bottom: 25px;
-  margin-left: 50px;
-  transition: 0.2s ease;
+.products:not(:empty) {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
-.setTexInp:focus {
-  outline: none;
-  border-color: #4c8bf5;
-  box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
-}
-
-/* ADD PRODUCT SECTION */
-.addProductInp {
+.products p {
+  background: #f8f9fc;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin: 10px 0;
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* ADD PRODUCT */
+.addProductInp {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .addProduct,
 .priceInp {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 8px;
   border: 1px solid #dcdcdc;
+  min-width: 160px;
   transition: 0.2s ease;
 }
 
@@ -64,17 +72,17 @@ body {
   box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
 }
 
-/* BUTTONS */
+/* BUTTON BASE */
 button {
   cursor: pointer;
   border: none;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 8px;
   font-weight: 500;
   transition: 0.2s ease;
 }
 
-/* Add button */
+/* BUTTON COLORS */
 .addProductBtn {
   background: #4c8bf5;
   color: white;
@@ -84,18 +92,15 @@ button {
   background: #3b73cc;
 }
 
-/* Delete button */
 .deleteProductBtn {
   background: #ff4d4f;
   color: white;
-  margin-right: 10px;
 }
 
 .deleteProductBtn:hover {
   background: #d9363e;
 }
 
-/* Initial products button */
 .initialProducts {
   background: #52c41a;
   color: white;
@@ -103,4 +108,88 @@ button {
 
 .initialProducts:hover {
   background: #3fa312;
+}
+
+/* SEARCH RESULTS */
+/* .searchProducts {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.searchProducts p {
+  background: #f8f9fc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin: 8px 0;
+  font-size: 14px;
+} */
+.searchProducts:empty {
+  display: none; /* Ako nema nijednog proizvoda, ne prikazuj karticu */
+}
+
+.searchProducts:not(:empty) {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.searchProducts p {
+  background: #f8f9fc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+/* BOTTOM ACTIONS */
+.bottomActions {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* SEARCH INPUT */
+.searchInp {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  min-width: 180px;
+  transition: 0.2s ease;
+}
+
+.searchInp:focus {
+  outline: none;
+  border-color: #4c8bf5;
+  box-shadow: 0 0 0 2px rgba(76, 139, 245, 0.2);
+}
+
+/* ========================= */
+/* RENDER TAX (POSEBNA KOMPONENTA) */
+/* ========================= */
+
+/* Pošto je samostalna, pravimo je kao poseban blok */
+.setTexInp {
+  margin-left: 440px;
+  display: block;
+  width: 200px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  background: white;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: 0.2s ease;
+}
+
+.setTexInp:focus {
+  outline: none;
+  border-color: #4c8bf5;
+  box-shadow: 0 0 0 3px rgba(76, 139, 245, 0.2);
 }
